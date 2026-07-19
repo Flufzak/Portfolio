@@ -1,1 +1,15 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+:root {
+  font-family: 'Roboto Mono', monospace;
+}
+
+html {
+  font-family: 'Roboto Mono', monospace;
+}
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  background: var(--background);
+  color: var(--text-primary);
+}
