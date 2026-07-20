@@ -28,9 +28,9 @@ const darkSplineUrl = 'https://my.spline.design/dark-hIFTv9GnsPoJyutFNaGzAtKt/';
   <Header />
 
   <div
-    class="page-padding pointer-events-none absolute inset-x-0 top-[53vh] z-20 flex items-end sm:top-auto sm:bottom-8 lg:bottom-12"
+    class="hero-content page-padding pointer-events-none absolute inset-x-0 top-[53vh] z-20 sm:top-auto sm:bottom-8 lg:bottom-12"
   >
-    <div class="flex min-w-0 flex-1 flex-col gap-3 pr-6 sm:gap-4">
+    <div class="flex min-w-0 flex-col gap-3 pr-6 sm:gap-4">
       <div class="hero-eyebrow" data-i18n="fullStackDeveloper">
         {t('fullStackDeveloper')}
       </div>
@@ -39,13 +39,13 @@ const darkSplineUrl = 'https://my.spline.design/dark-hIFTv9GnsPoJyutFNaGzAtKt/';
         {t('hero-title')}
       </h1>
     </div>
+  </div>
 
-    <div
-      class="hero-microcopy hidden w-[12rem] shrink-0 -translate-y-6 flex-col text-right sm:flex"
-    >
-      <p>{t('based-in-belgium')}</p>
-      <p>{t('available-worldwide')}</p>
-    </div>
+  <div
+    class="hero-microcopy hero-side-copy pointer-events-none absolute right-[var(--spline-badge-right)] bottom-[var(--spline-copy-bottom)] z-20 hidden w-[12rem] flex-col text-right sm:flex"
+  >
+    <p>{t('based-in-belgium')}</p>
+    <p>{t('available-worldwide')}</p>
   </div>
 </section>
 

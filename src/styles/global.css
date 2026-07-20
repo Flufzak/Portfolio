@@ -3,6 +3,9 @@
 :root {
   --page-padding: 1.25rem;
   --page-max-width: 90rem;
+
+  --spline-badge-right: 1.25rem;
+  --spline-copy-bottom: 4.5rem;
 }
 
 body {
@@ -14,6 +17,8 @@ body {
 @media (min-width: 640px) {
   :root {
     --page-padding: 2rem;
+    --spline-badge-right: 2rem;
+    --spline-copy-bottom: 4.75rem;
   }
 }
 
@@ -38,6 +43,7 @@ body {
   font-weight: 600;
   line-height: 0.98;
   letter-spacing: -0.03em;
+  transform: translateX(-0.04em);
 }
 
 .hero-eyebrow {
@@ -64,6 +70,31 @@ body {
     font-size: clamp(2.4rem, 11vw, 3.75rem);
     line-height: 1;
     letter-spacing: -0.02em;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .hero-content {
+    top: auto;
+    bottom: 1.5rem;
+    padding-right: 14rem;
+  }
+
+  .hero-heading {
+    max-width: 44rem;
+    font-size: clamp(2rem, 5.5vw, 3.75rem);
+    line-height: 0.98;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+  }
+
+  .hero-side-copy {
+    right: 2rem;
+    bottom: 4.75rem;
+    width: 10rem;
   }
 }
 
