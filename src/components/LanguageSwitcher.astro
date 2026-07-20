@@ -1,0 +1,96 @@
+---
+import { t } from '../i18n';
+import '../styles/language-switcher.css';
+---
+
+<div
+  class="language-switcher"
+  data-language-switcher
+  data-current-language="en"
+  role="group"
+  aria-label={t('select-language')}
+  data-i18n-aria-label="select-language"
+>
+  <span class="language-switcher__bubble" aria-hidden="true"></span>
+
+  <button
+    class="language-switcher__button"
+    type="button"
+    data-language="en"
+    aria-pressed="true"
+  >
+    EN
+  </button>
+
+  <button
+    class="language-switcher__button"
+    type="button"
+    data-language="nl"
+    aria-pressed="false"
+  >
+    NL
+  </button>
+</div>
+
+<script>
+  import { getStoredLanguage, setLanguage } from '../i18n/client';
+
+  import type { Language } from '../i18n';
+
+  function updateSwitcher(language: Language): void {
+    document
+      .querySelectorAll<HTMLElement>('[data-language-switcher]')
+      .forEach((switcher) => {
+        switcher.dataset.currentLanguage = language;
+
+        switcher
+          .querySelectorAll<HTMLButtonElement>('[data-language]')
+          .forEach((button) => {
+            const isActive = button.dataset.language === language;
+
+            button.setAttribute('aria-pressed', String(isActive));
+          });
+      });
+  }
+
+  function initializeLanguageSwitchers(): void {
+    const language = getStoredLanguage();
+
+    updateSwitcher(language);
+
+    document
+      .querySelectorAll<HTMLButtonElement>(
+        '[data-language-switcher] [data-language]',
+      )
+      .forEach((button) => {
+        if (button.dataset.listenerAttached === 'true') {
+          return;
+        }
+
+        button.dataset.listenerAttached = 'true';
+
+        button.addEventListener('click', async () => {
+          const selectedLanguage = button.dataset.language as
+            Language | undefined;
+
+          if (!selectedLanguage) {
+            return;
+          }
+
+          updateSwitcher(selectedLanguage);
+
+          await setLanguage(selectedLanguage);
+        });
+      });
+  }
+
+  initializeLanguageSwitchers();
+
+  document.addEventListener('astro:page-load', initializeLanguageSwitchers);
+
+  window.addEventListener('languagechange', (event) => {
+    const customEvent = event as CustomEvent<Language>;
+
+    updateSwitcher(customEvent.detail);
+  });
+</script>
