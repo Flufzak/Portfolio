@@ -1,6 +1,7 @@
 ---
 import { t } from '../i18n';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
 
 const navigationItems = [
   {
@@ -20,7 +21,7 @@ const navigationItems = [
 ] as const;
 
 const navLinkClass =
-  'text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--primary)]';
+  'flex h-11 items-center text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--primary)] sm:h-auto';
 ---
 
 <header
@@ -36,7 +37,7 @@ const navLinkClass =
 
   <nav
     aria-label="Navigation"
-    class="pointer-events-auto flex items-center gap-4 sm:gap-6"
+    class="pointer-events-auto flex items-start gap-4 sm:items-center sm:gap-6"
   >
     {
       navigationItems.map((item) => (
@@ -53,6 +54,14 @@ const navLinkClass =
       ))
     }
 
-    <LanguageSwitcher />
+    <div
+      class="flex flex-col items-end sm:ml-8 sm:flex-row sm:items-center sm:gap-2"
+    >
+      <LanguageSwitcher />
+
+      <div class="-mt-1 pr-2 sm:mt-0 sm:pr-0">
+        <ThemeSwitcher />
+      </div>
+    </div>
   </nav>
 </header>

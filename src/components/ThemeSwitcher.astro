@@ -1,0 +1,198 @@
+---
+import { Moon, Sun } from '@lucide/astro';
+---
+
+<button
+  type="button"
+  class="theme-switcher"
+  data-theme-switcher
+  data-current-theme="light"
+  aria-label="Schakel naar donkere modus"
+>
+  <Sun
+    size={16}
+    stroke-width={2}
+    aria-hidden="true"
+    class="theme-switcher__icon theme-switcher__icon--sun"
+  />
+
+  <Moon
+    size={16}
+    stroke-width={2}
+    aria-hidden="true"
+    class="theme-switcher__icon theme-switcher__icon--moon"
+  />
+</button>
+
+<style>
+  .theme-switcher {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    width: 2.5rem;
+    height: 1.75rem;
+    min-width: 2.5rem;
+    min-height: 1.75rem;
+    padding: 0;
+
+    border: 1px solid var(--primary);
+    border-radius: 0.68rem;
+
+    background: transparent;
+    color: var(--primary);
+
+    cursor: pointer;
+
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease,
+      color 220ms ease,
+      transform 220ms ease;
+  }
+
+  .theme-switcher:hover {
+    background: var(--surface-hover);
+  }
+
+  .theme-switcher:active {
+    transform: scale(0.95);
+  }
+
+  .theme-switcher:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  .theme-switcher__icon {
+    position: absolute;
+
+    transition:
+      opacity 220ms ease,
+      transform 320ms cubic-bezier(0.34, 1.35, 0.64, 1);
+  }
+
+  .theme-switcher__icon--sun {
+    fill: none;
+    color: var(--primary);
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  .theme-switcher__icon--moon {
+    fill: var(--primary);
+    color: var(--text-primary);
+    opacity: 0;
+    transform: rotate(-25deg) scale(0.65);
+  }
+
+  .theme-switcher[data-current-theme='dark'] {
+    border-color: var(--primary);
+    background: var(--primary);
+  }
+
+  .theme-switcher[data-current-theme='dark']:hover {
+    background: var(--primary);
+    filter: brightness(1.06);
+  }
+
+  .theme-switcher[data-current-theme='dark'] .theme-switcher__icon--sun {
+    opacity: 0;
+    transform: rotate(25deg) scale(0.65);
+  }
+
+  .theme-switcher[data-current-theme='dark'] .theme-switcher__icon--moon {
+    fill: var(--surface-hover);
+    color: var(--surface-hover);
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-switcher,
+    .theme-switcher__icon {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>
+
+<script>
+  type Theme = 'light' | 'dark';
+
+  const storageKey = 'portfolio-theme';
+
+  function getStoredTheme(): Theme {
+    return localStorage.getItem(storageKey) === 'dark' ? 'dark' : 'light';
+  }
+
+  function updateThemeSwitcher(theme: Theme): void {
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-theme-switcher]')
+      .forEach((button) => {
+        button.dataset.currentTheme = theme;
+
+        button.setAttribute(
+          'aria-label',
+          theme === 'light'
+            ? 'Schakel naar donkere modus'
+            : 'Schakel naar lichte modus',
+        );
+      });
+  }
+
+  function applyTheme(theme: Theme): void {
+    if (theme === 'dark') {
+      document.documentElement.dataset.theme = 'dark';
+    } else {
+      delete document.documentElement.dataset.theme;
+    }
+
+    document.documentElement.style.colorScheme = theme;
+
+    localStorage.setItem(storageKey, theme);
+
+    updateThemeSwitcher(theme);
+
+    window.dispatchEvent(
+      new CustomEvent<Theme>('themechange', {
+        detail: theme,
+      }),
+    );
+  }
+
+  function initializeThemeSwitcher(): void {
+    const theme = getStoredTheme();
+
+    applyTheme(theme);
+
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-theme-switcher]')
+      .forEach((button) => {
+        if (button.dataset.listenerAttached === 'true') {
+          return;
+        }
+
+        button.dataset.listenerAttached = 'true';
+
+        button.addEventListener('click', () => {
+          const currentTheme =
+            button.dataset.currentTheme === 'dark' ? 'dark' : 'light';
+
+          const nextTheme: Theme = currentTheme === 'light' ? 'dark' : 'light';
+
+          applyTheme(nextTheme);
+        });
+      });
+  }
+
+  initializeThemeSwitcher();
+
+  document.addEventListener('astro:page-load', initializeThemeSwitcher);
+
+  window.addEventListener('themechange', (event) => {
+    const customEvent = event as CustomEvent<Theme>;
+
+    updateThemeSwitcher(customEvent.detail);
+  });
+</script>

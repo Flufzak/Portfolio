@@ -54,6 +54,11 @@ body {
   line-height: 1.6;
 }
 
+#hero-spline {
+  background: transparent;
+  color-scheme: normal;
+}
+
 @media (max-width: 639px) {
   .hero-heading {
     font-size: clamp(2.4rem, 11vw, 3.75rem);
