@@ -1,0 +1,58 @@
+---
+import { t } from '../i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const navigationItems = [
+  {
+    href: '#projects',
+    key: 'projects',
+  },
+  {
+    href: '#about',
+    key: 'about-me',
+    className: 'hidden sm:block',
+  },
+  {
+    href: '#contact',
+    key: 'contact',
+    className: 'hidden sm:block',
+  },
+] as const;
+
+const navLinkClass =
+  'text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--primary)]';
+---
+
+<header
+  class="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-5 py-3 sm:items-center sm:px-8 sm:py-7 lg:px-10"
+>
+  <a
+    href="/"
+    aria-label="Go to homepage"
+    class="pointer-events-auto max-w-40 text-sm font-semibold leading-tight tracking-[-0.04em] text-[var(--text-primary)] transition-colors duration-200 hover:text-[var(--primary)]"
+  >
+    Suzanna Khachatryan - Portfolio
+  </a>
+
+  <nav
+    aria-label="Navigation"
+    class="pointer-events-auto flex items-center gap-4 sm:gap-6"
+  >
+    {
+      navigationItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            navLinkClass,
+            'className' in item ? item.className : undefined,
+          ]}
+          data-i18n={item.key}
+        >
+          {t(item.key)}
+        </a>
+      ))
+    }
+
+    <LanguageSwitcher />
+  </nav>
+</header>

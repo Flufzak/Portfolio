@@ -1,0 +1,84 @@
+---
+import { t } from '../i18n';
+import Header from './Header.astro';
+
+const lightSplineUrl =
+  'https://my.spline.design/untitled-Q4yHJgcAbK933uRjhvSy9Il6/';
+
+const darkSplineUrl = 'https://my.spline.design/dark-hIFTv9GnsPoJyutFNaGzAtKt/';
+---
+
+<section
+  class="relative min-h-[100svh] overflow-hidden bg-[var(--background)] text-[var(--text-primary)]"
+>
+  <div class="absolute inset-x-0 top-20 z-0 h-[40vh] sm:inset-0 sm:h-auto">
+    <iframe
+      id="hero-spline"
+      src={lightSplineUrl}
+      data-light-src={lightSplineUrl}
+      data-dark-src={darkSplineUrl}
+      data-active-theme="light"
+      title="Interactief 3D-logo"
+      loading="eager"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      class="block h-full w-full border-0"></iframe>
+  </div>
+
+  <Header />
+
+  <div
+    class="page-padding pointer-events-none absolute inset-x-0 top-[53vh] z-20 sm:top-auto sm:bottom-8 lg:bottom-12"
+  >
+    <div class="flex max-w-[46rem] flex-col gap-3 sm:gap-4">
+      <div class="hero-eyebrow" data-i18n="fullStackDeveloper">
+        {t('fullStackDeveloper')}
+      </div>
+
+      <h1 class="hero-heading max-w-[12ch]" data-i18n="hero-title">
+        {t('hero-title')}
+      </h1>
+    </div>
+  </div>
+
+  <div
+    class="page-padding pointer-events-none absolute inset-x-0 bottom-14 z-20 hidden justify-end sm:flex lg:bottom-16"
+  >
+    <div class="hero-microcopy flex max-w-[12rem] flex-col text-right">
+      <p>{t('based-in-belgium')}</p>
+      <p>{t('available-worldwide')}</p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const splineFrame = document.querySelector('#hero-spline');
+  const root = document.documentElement;
+
+  const updateSplineTheme = () => {
+    if (!(splineFrame instanceof HTMLIFrameElement)) return;
+
+    const nextTheme = root.dataset.theme === 'dark' ? 'dark' : 'light';
+
+    if (splineFrame.dataset.activeTheme === nextTheme) return;
+
+    const nextSource =
+      nextTheme === 'dark'
+        ? splineFrame.dataset.darkSrc
+        : splineFrame.dataset.lightSrc;
+
+    if (!nextSource) return;
+
+    splineFrame.dataset.activeTheme = nextTheme;
+    splineFrame.src = nextSource;
+  };
+
+  updateSplineTheme();
+
+  const themeObserver = new MutationObserver(updateSplineTheme);
+
+  themeObserver.observe(root, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+</script>

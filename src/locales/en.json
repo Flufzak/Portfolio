@@ -1,4 +1,11 @@
 {
   "portfolio": "Portfolio",
-  "select-language": "Select language"
+  "select-language": "Select language",
+  "fullStackDeveloper": "Full-Stack Developer",
+  "projects": "Projects",
+  "about-me": "About me",
+  "contact": "Contact",
+  "hero-title": "Built by curiosity, refined with care.",
+  "based-in-belgium": "Based in Belgium",
+  "available-worldwide": "Available worldwide"
 }

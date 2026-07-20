@@ -1,4 +1,11 @@
 {
   "portfolio": "Portfolio",
-  "select-language": "Selecteer taal"
+  "select-language": "Selecteer taal",
+  "fullStackDeveloper": "Full-Stack Ontwikkelaar",
+  "projects": "Projecten",
+  "about-me": "Over mij",
+  "contact": "Contact",
+  "hero-title": "Ontstaan uit nieuwsgierigheid, met zorg verfijnd.",
+  "based-in-belgium": "Gebasseerd in België",
+  "available-worldwide": "Wereldwijd beschikbaar"
 }

@@ -1,9 +1,65 @@
 @import 'tailwindcss';
 
+:root {
+  --page-padding: 1.25rem;
+  --page-max-width: 90rem;
+}
+
 body {
   font-family: 'Roboto Mono', monospace;
   background: var(--background);
   color: var(--text-primary);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-padding: 3rem;
+  }
+}
+
+.page-container {
+  width: min(calc(100% - (var(--page-padding) * 2)), var(--page-max-width));
+  margin-inline: auto;
+}
+
+.page-padding {
+  padding-inline: var(--page-padding);
+}
+
+.hero-heading {
+  color: var(--text-primary);
+  font-size: clamp(2.5rem, 6vw, 6.5rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+}
+
+.hero-eyebrow {
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.hero-microcopy {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 639px) {
+  .hero-heading {
+    font-size: clamp(2.4rem, 11vw, 3.75rem);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
 }
 
 @layer base {
