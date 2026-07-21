@@ -1,5 +1,6 @@
 ---
 import { t } from '../../i18n';
+import '../../styles/header.css';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeSwitcher from './ThemeSwitcher.astro';
 
@@ -21,16 +22,18 @@ const navigationItems = [
 ] as const;
 
 const navLinkClass =
-  'flex h-11 items-center text-[0.65rem] font-medium uppercase tracking-[0.18em] text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--primary)] sm:h-auto';
+  'flex h-11 items-center text-[0.65rem] font-medium uppercase tracking-[0.18em] text-(--text-secondary) transition-colors duration-200 hover:text-(--primary) sm:h-auto';
 ---
 
 <header
-  class="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-5 py-3 sm:items-center sm:px-8 sm:py-7 lg:px-10"
+  class="site-header pointer-events-none fixed inset-x-0 top-0 z-30 flex items-start justify-between gap-5 py-2 sm:items-center sm:px-8 lg:px-10"
+  data-site-header
+  data-scrolled="false"
 >
   <a
     href="/"
     aria-label="Go to homepage"
-    class="pointer-events-auto max-w-40 lg:max-w-none text-sm font-semibold leading-tight tracking-[-0.04em] text-[var(--text-primary)] transition-colors duration-200 hover:text-[var(--primary)]"
+    class="pointer-events-auto max-w-40 lg:max-w-none pl-2 lg:pl-0 text-sm font-semibold leading-tight tracking-[-0.04em] text-(--text-primary) transition-colors duration-200 hover:text-(--primary)"
   >
     Suzanna Khachatryan - Portfolio
   </a>
@@ -65,3 +68,34 @@ const navLinkClass =
     </div>
   </nav>
 </header>
+
+<script>
+  function updateHeaderBackground(): void {
+    const header = document.querySelector<HTMLElement>('[data-site-header]');
+    const heroEyebrow = document.querySelector<HTMLElement>('.hero-eyebrow');
+
+    if (!header || !heroEyebrow) return;
+
+    const eyebrowHasReachedHeader =
+      heroEyebrow.getBoundingClientRect().top <= header.offsetHeight;
+
+    header.dataset.scrolled = String(eyebrowHasReachedHeader);
+  }
+
+  function initializeHeaderScrollState(): void {
+    updateHeaderBackground();
+
+    if (document.documentElement.dataset.headerScrollListener === 'true') {
+      return;
+    }
+
+    document.documentElement.dataset.headerScrollListener = 'true';
+    window.addEventListener('scroll', updateHeaderBackground, {
+      passive: true,
+    });
+    window.addEventListener('resize', updateHeaderBackground);
+  }
+
+  initializeHeaderScrollState();
+  document.addEventListener('astro:page-load', initializeHeaderScrollState);
+</script>

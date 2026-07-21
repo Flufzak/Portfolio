@@ -9,7 +9,7 @@ const darkSplineUrl = 'https://my.spline.design/dark-hIFTv9GnsPoJyutFNaGzAtKt/';
 ---
 
 <section
-  class="relative min-h-[100svh] overflow-hidden bg-[var(--background)] text-[var(--text-primary)]"
+  class="relative min-h-[88svh] overflow-hidden bg-(--background) text-(--text-primary) sm:min-h-svh"
 >
   <div class="absolute inset-x-0 top-20 z-0 h-[40vh] sm:inset-0 sm:h-auto">
     <iframe
@@ -20,7 +20,6 @@ const darkSplineUrl = 'https://my.spline.design/dark-hIFTv9GnsPoJyutFNaGzAtKt/';
       data-active-theme="light"
       title="Interactief 3D-logo"
       loading="eager"
-      frameborder="0"
       allow="autoplay; fullscreen"
       class="block h-full w-full border-0"></iframe>
   </div>
@@ -42,10 +41,10 @@ const darkSplineUrl = 'https://my.spline.design/dark-hIFTv9GnsPoJyutFNaGzAtKt/';
   </div>
 
   <div
-    class="hero-microcopy hero-side-copy pointer-events-none absolute right-[var(--spline-badge-right)] bottom-[var(--spline-copy-bottom)] z-20 hidden w-[12rem] flex-col text-right sm:flex"
+    class="hero-microcopy hero-side-copy pointer-events-none absolute right-(--spline-badge-right) bottom-(--spline-copy-bottom) z-20 hidden w-48 flex-col text-right sm:flex"
   >
-    <p>{t('based-in-belgium')}</p>
-    <p>{t('available-worldwide')}</p>
+    <p data-i18n="based-in-belgium">{t('based-in-belgium')}</p>
+    <p data-i18n="available-worldwide">{t('available-worldwide')}</p>
   </div>
 </section>
 

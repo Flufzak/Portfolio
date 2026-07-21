@@ -1,11 +1,19 @@
 {
-  "portfolio": "Portfolio",
-  "select-language": "Selecteer taal",
-  "fullStackDeveloper": "Full-Stack Ontwikkelaar",
-  "projects": "Projecten",
+  "about-intro": "Ik ben Suzanna. Ik ben een full-stack developer uit België en bouw graag webapplicaties van begin tot eind. Ik werk met plezier aan zowel de frontend als de backend omdat ik het leuk vind om te zien hoe alles samenkomt.\n\nIk ben altijd nieuwsgierig om iets nieuws te leren en haal veel voldoening uit het verbeteren van mijn projecten, of dat nu betekent dat de code netter wordt, het design sterker of de gebruikerservaring nog vloeiender.\n\nWanneer ik niet aan het programmeren ben, ben ik meestal met muziek bezig. Ik schrijf al jaren nummers en het is uitgegroeid tot een creatieve uitlaatklep die mooi in balans is met de technische kant van mijn werk.\n\nIk neem graag de tijd om ook de kleinste details te verfijnen omdat ik geloof dat juist die het verschil maken tussen een goed project en een geweldige gebruikerservaring.",
   "about-me": "Over mij",
-  "contact": "Contact",
-  "hero-title": "Ontstaan uit nieuwsgierigheid, met zorg verfijnd.",
+  "available-worldwide": "Wereldwijd beschikbaar",
+  "backend": "Backend",
+  "backend-description": "Ik ontwikkel overzichtelijke en betrouwbare API’s en backend-systemen die eenvoudig te onderhouden zijn en geschikt zijn om te groeien over tijd.",
   "based-in-belgium": "Gebasseerd in België",
-  "available-worldwide": "Wereldwijd beschikbaar"
+  "contact": "Contact",
+  "frontend": "Frontend",
+  "frontend-description": "Ik vind het belangrijk om interfaces te ontwerpen die er niet alleen mooi uitzien, maar ook intuïtief aanvoelen en makkelik te gebruiken zijn.",
+  "full-stack": "Full-stack",
+  "full-stack-description": "Ik geniet ervan om aan de hele stack te werken en ontwerp, frontend en backend samen te brengen tot één samenhangend product.",
+  "fullStackDeveloper": "Full-Stack Ontwikkelaar",
+  "hero-title": "Ontstaan uit nieuwsgierigheid, met zorg verfijnd.",
+  "portfolio": "Portfolio",
+  "projects": "Projecten",
+  "select-language": "Selecteer taal",
+  "what-i-build": "Wat ik bouw"
 }

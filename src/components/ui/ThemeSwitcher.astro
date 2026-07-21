@@ -103,6 +103,19 @@ import Button from './Button.astro';
       });
   }
 
+  function updateThemeImages(theme: Theme): void {
+    document
+      .querySelectorAll<HTMLImageElement>('[data-theme-image]')
+      .forEach((image) => {
+        const nextSource =
+          theme === 'dark' ? image.dataset.darkSrc : image.dataset.lightSrc;
+
+        if (nextSource && image.src !== new URL(nextSource, location.href).href) {
+          image.src = nextSource;
+        }
+      });
+  }
+
   function applyTheme(theme: Theme): void {
     if (theme === 'dark') {
       document.documentElement.dataset.theme = 'dark';
@@ -115,6 +128,7 @@ import Button from './Button.astro';
     localStorage.setItem(storageKey, theme);
 
     updateThemeSwitcher(theme);
+    updateThemeImages(theme);
 
     window.dispatchEvent(
       new CustomEvent<Theme>('themechange', {

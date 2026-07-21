@@ -1,11 +1,19 @@
 {
-  "portfolio": "Portfolio",
-  "select-language": "Select language",
-  "fullStackDeveloper": "Full-Stack Developer",
-  "projects": "Projects",
+  "about-intro": "I'm Suzanna. I'm a full-stack developer from Belgium who enjoys building web applications from start to finish. I like working on both the frontend and the backend because I enjoy understanding how everything works together.\n\nI'm always curious to learn something new and I genuinely enjoy improving my projects, whether that's making the code cleaner, the design better or the experience smoother.\n\nWhen I'm not coding I'm usually making music. I've been writing songs for years and it's become another creative outlet that balances the more technical side of what I do.\n\nI enjoy taking the time to refine the small details because I believe they're what turn a good project into a great user experience.",
   "about-me": "About me",
-  "contact": "Contact",
-  "hero-title": "Built by curiosity, refined with care.",
+  "available-worldwide": "Available worldwide",
+  "backend": "Backend",
+  "backend-description": "I build clean and reliable APIs and backend systems that are easy to maintain and designed to grow over time.",
   "based-in-belgium": "Based in Belgium",
-  "available-worldwide": "Available worldwide"
+  "contact": "Contact",
+  "frontend": "Frontend",
+  "frontend-description": "I care about creating interfaces that not only look good, but also feel intuitive and enjoyable to use.",
+  "full-stack": "Full-stack",
+  "full-stack-description": "I enjoy working across the entire stack bringing together design, frontend and backend into one cohesive product.",
+  "fullStackDeveloper": "Full-Stack Developer",
+  "hero-title": "Built by curiosity, refined with care.",
+  "portfolio": "Portfolio",
+  "projects": "Projects",
+  "select-language": "Select language",
+  "what-i-build": "What I build"
 }

@@ -1,0 +1,19 @@
+.site-header {
+  background: transparent;
+  box-shadow: none;
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.site-header[data-scrolled='true'] {
+  background: var(--background);
+  box-shadow: 0 0.25rem 1rem
+    color-mix(in srgb, var(--shadow) 55%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition-duration: 0.01ms;
+  }
+}
