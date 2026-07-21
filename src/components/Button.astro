@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'button'> {
+  inverted?: boolean;
+}
+
+const {
+  class: className,
+  inverted = false,
+  type = 'button',
+  ...attributes
+} = Astro.props;
+---
+
+<button
+  {...attributes}
+  class:list={['button', { 'button--inverted': inverted }, className]}
+  type={type}
+>
+  <slot />
+</button>

@@ -1,28 +1,28 @@
 ---
 import { Moon, Sun } from '@lucide/astro';
+import Button from './Button.astro';
 ---
 
-<button
-  type="button"
+<Button
   class="theme-switcher"
   data-theme-switcher
   data-current-theme="light"
   aria-label="Schakel naar donkere modus"
 >
   <Sun
-    size={16}
+    size={14}
     stroke-width={2}
     aria-hidden="true"
     class="theme-switcher__icon theme-switcher__icon--sun"
   />
 
   <Moon
-    size={16}
+    size={14}
     stroke-width={2}
     aria-hidden="true"
     class="theme-switcher__icon theme-switcher__icon--moon"
   />
-</button>
+</Button>
 
 <style>
   .theme-switcher {
@@ -35,34 +35,7 @@ import { Moon, Sun } from '@lucide/astro';
     height: 1.75rem;
     min-width: 2.5rem;
     min-height: 1.75rem;
-    padding: 0;
-
-    border: 1px solid var(--primary);
     border-radius: 0.68rem;
-
-    background: transparent;
-    color: var(--primary);
-
-    cursor: pointer;
-
-    transition:
-      background-color 220ms ease,
-      border-color 220ms ease,
-      color 220ms ease,
-      transform 220ms ease;
-  }
-
-  .theme-switcher:hover {
-    background: var(--surface-hover);
-  }
-
-  .theme-switcher:active {
-    transform: scale(0.95);
-  }
-
-  .theme-switcher:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 3px;
   }
 
   .theme-switcher__icon {
@@ -87,16 +60,6 @@ import { Moon, Sun } from '@lucide/astro';
     transform: rotate(-25deg) scale(0.65);
   }
 
-  .theme-switcher[data-current-theme='dark'] {
-    border-color: var(--primary);
-    background: var(--primary);
-  }
-
-  .theme-switcher[data-current-theme='dark']:hover {
-    background: var(--primary);
-    filter: brightness(1.06);
-  }
-
   .theme-switcher[data-current-theme='dark'] .theme-switcher__icon--sun {
     opacity: 0;
     transform: rotate(25deg) scale(0.65);
@@ -110,7 +73,6 @@ import { Moon, Sun } from '@lucide/astro';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .theme-switcher,
     .theme-switcher__icon {
       transition-duration: 0.01ms;
     }

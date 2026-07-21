@@ -1,6 +1,14 @@
 ---
 import { t } from '../i18n';
 import '../styles/language-switcher.css';
+import Button from './Button.astro';
+
+const languageButtonClass = [
+  'relative min-h-9 min-w-11 rounded-[0.68rem] border-0! bg-transparent! px-3 py-[0.45rem]',
+  'text-[0.65rem] font-medium tracking-[0.18em] text-[var(--text-secondary)]',
+  'hover:bg-[var(--surface-hover)]! hover:text-[var(--text-primary)]',
+  'aria-[pressed=true]:bg-transparent! aria-[pressed=true]:text-[var(--surface)]',
+].join(' ');
 ---
 
 <div
@@ -13,23 +21,21 @@ import '../styles/language-switcher.css';
 >
   <span class="language-switcher__bubble" aria-hidden="true"></span>
 
-  <button
-    class="language-switcher__button"
-    type="button"
+  <Button
+    class={languageButtonClass}
     data-language="en"
     aria-pressed="true"
   >
     EN
-  </button>
+  </Button>
 
-  <button
-    class="language-switcher__button"
-    type="button"
+  <Button
+    class={languageButtonClass}
     data-language="nl"
     aria-pressed="false"
   >
     NL
-  </button>
+  </Button>
 </div>
 
 <script>

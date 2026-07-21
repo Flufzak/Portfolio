@@ -37,6 +37,55 @@ body {
   padding-inline: var(--page-padding);
 }
 
+.button {
+  padding: 0;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: var(--surface);
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.button:hover {
+  background: var(--primary);
+  filter: brightness(1.06);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button--inverted,
+.button[aria-pressed='false'],
+.button[data-current-theme='light'] {
+  background: var(--surface);
+  color: var(--primary);
+  filter: none;
+}
+
+.button--inverted:hover,
+.button[aria-pressed='false']:hover,
+.button[data-current-theme='light']:hover {
+  background: var(--surface-hover);
+  filter: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition-duration: 0.01ms;
+  }
+}
+
 .hero-heading {
   color: var(--text-primary);
   font-size: clamp(2.5rem, 6vw, 6.5rem);
