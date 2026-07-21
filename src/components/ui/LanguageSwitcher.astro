@@ -1,6 +1,6 @@
 ---
-import { t } from '../i18n';
-import '../styles/language-switcher.css';
+import { t } from '../../i18n';
+import '../../styles/language-switcher.css';
 import Button from './Button.astro';
 
 const languageButtonClass = [
@@ -21,31 +21,19 @@ const languageButtonClass = [
 >
   <span class="language-switcher__bubble" aria-hidden="true"></span>
 
-  <Button
-    class={languageButtonClass}
-    data-language="en"
-    aria-pressed="true"
-  >
+  <Button class={languageButtonClass} data-language="en" aria-pressed="true">
     EN
   </Button>
 
-  <Button
-    class={languageButtonClass}
-    data-language="nl"
-    aria-pressed="false"
-  >
+  <Button class={languageButtonClass} data-language="nl" aria-pressed="false">
     NL
   </Button>
 </div>
 
 <script>
-  import {
-    getStoredLanguage,
-    setLanguage,
-    startI18n,
-  } from '../i18n/client';
+  import { getStoredLanguage, setLanguage, startI18n } from '../../i18n/client';
 
-  import type { Language } from '../i18n';
+  import type { Language } from '../../i18n';
 
   function updateSwitcher(language: Language): void {
     document
