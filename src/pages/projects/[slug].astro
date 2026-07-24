@@ -1,13 +1,13 @@
 ---
 import { ArrowLeft } from '@lucide/astro';
 
-import Gallery from '../../components/Gallery.astro';
-import Header from '../../components/ui/Header.astro';
+import Header from '../../components/Header.astro';
 import SectionTitle from '../../components/ui/SectionTitle.astro';
 import TechnologyTag from '../../components/ui/TechnologyTag.astro';
 import { projects, type Project } from '../../data/projects';
 import { t } from '../../i18n';
 import Layout from '../../layouts/Layout.astro';
+import Gallery from '../../components/ui/Gallery.astro';
 
 export function getStaticPaths() {
   return projects.map((project) => ({
@@ -38,9 +38,7 @@ const detailDarkBackground =
 >
   <Header />
 
-  <main
-    class="wide-container min-h-screen pt-28 pb-10 sm:pt-20 sm:pb-16"
-  >
+  <main class="wide-container min-h-screen pt-28 pb-10 sm:pt-20 sm:pb-16">
     <a
       href="/#projects"
       class="mb-10 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] text-(--text-secondary) transition-colors hover:text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
