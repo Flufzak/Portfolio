@@ -1,0 +1,82 @@
+---
+import type { Project } from '../data/projects';
+import { t } from '../i18n';
+import TechnologyTag from './ui/TechnologyTag.astro';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const cardLightLogo = project.logo;
+const cardDarkLogo = project.darkLogo;
+const cardLightBackground =
+  project.detailLightBackground ?? 'var(--surface-hover)';
+const cardDarkBackground =
+  project.detailDarkBackground ?? project.detailLightBackground;
+---
+
+<article class="h-72 lg:h-60">
+  <a
+    href={`/projects/${project.slug}`}
+    aria-label={`View ${project.title}`}
+    class="group grid h-full grid-rows-[minmax(0,1fr)_minmax(0,2fr)] overflow-hidden rounded-[0.68rem] border border-(--border) bg-(--surface) text-inherit transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-(--primary) hover:shadow-[0_1rem_2.5rem_var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) lg:grid-cols-[2fr_1fr] lg:grid-rows-1"
+  >
+    <div class="order-2 flex min-w-0 flex-col p-4 sm:p-5 lg:order-1">
+      <h3
+        class="text-lg text-(--text-primary) transition-colors duration-200 group-hover:text-(--primary) group-focus-visible:text-(--primary) sm:text-xl"
+      >
+        {project.title}
+      </h3>
+
+      <p
+        class="mt-2 line-clamp-6 text-[0.8rem] text-(--text-secondary)"
+        data-i18n={project.description}
+      >
+        {t(project.description)}
+      </p>
+
+      <ul
+        class="mt-auto flex flex-wrap gap-1.5 pt-4"
+        aria-label={`${project.title} technologies`}
+      >
+        {
+          project.technologies.map((technology) => (
+            <TechnologyTag label={technology} size="compact" />
+          ))
+        }
+      </ul>
+    </div>
+
+    <div
+      class="relative order-1 grid min-h-0 overflow-hidden place-items-center lg:order-2"
+      style={`background-color: ${cardLightBackground}`}
+      data-theme-background={cardDarkBackground ? '' : undefined}
+      data-light-background={cardDarkBackground
+        ? cardLightBackground
+        : undefined}
+      data-dark-background={cardDarkBackground}
+    >
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 bg-center bg-no-repeat bg-size-[auto_120%] lg:hidden"
+        style={`background-image: url("${cardLightLogo}")`}
+        data-theme-background-image={cardDarkLogo ? '' : undefined}
+        data-light-background-image={cardDarkLogo ? cardLightLogo : undefined}
+        data-dark-background-image={cardDarkLogo}
+      >
+      </div>
+      <img
+        src={cardLightLogo}
+        data-theme-image={cardDarkLogo ? '' : undefined}
+        data-light-src={cardDarkLogo ? cardLightLogo : undefined}
+        data-dark-src={cardDarkLogo}
+        alt={`${project.title} logo`}
+        loading="lazy"
+        decoding="async"
+        class="col-start-1 row-start-1 hidden h-full w-full object-cover object-center transition-transform duration-200 lg:block lg:group-hover:scale-105"
+        onerror="this.remove()"
+      />
+    </div>
+  </a>
+</article>

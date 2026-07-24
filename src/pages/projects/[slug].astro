@@ -1,0 +1,123 @@
+---
+import { ArrowLeft } from '@lucide/astro';
+
+import Gallery from '../../components/Gallery.astro';
+import Header from '../../components/ui/Header.astro';
+import SectionTitle from '../../components/ui/SectionTitle.astro';
+import TechnologyTag from '../../components/ui/TechnologyTag.astro';
+import { projects, type Project } from '../../data/projects';
+import { t } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const description = t(project.description);
+const technologies = project.usedTechnologies;
+const images = project.images;
+const detailLightLogo = project.detailLightLogo ?? project.logo;
+const detailDarkLogo = project.detailDarkLogo ?? project.darkLogo;
+const detailLightBackground = project.detailLightBackground ?? 'var(--surface)';
+const detailDarkBackground =
+  project.detailDarkBackground ?? project.detailLightBackground;
+---
+
+<Layout
+  title={`${project.title} | Suzanna Khachatryan`}
+  description={description.split('\n')[0]}
+  image={images[0]?.src ?? project.logo}
+>
+  <Header />
+
+  <main
+    class="wide-container min-h-screen pt-28 pb-10 sm:pt-20 sm:pb-16"
+  >
+    <a
+      href="/#projects"
+      class="mb-10 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] text-(--text-secondary) transition-colors hover:text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+    >
+      <ArrowLeft size={16} stroke-width={1.8} aria-hidden="true" />
+      <span data-i18n="back-to-projects">{t('back-to-projects')}</span>
+    </a>
+
+    <section aria-labelledby="project-title">
+      <h1 id="project-title" class="sr-only">{project.title}</h1>
+
+      <div
+        class="grid h-40 place-items-center overflow-hidden rounded-[0.68rem] border border-(--border) p-4 sm:h-52 sm:p-6"
+        style={`background-color: ${detailLightBackground}`}
+        data-theme-background={detailDarkBackground ? '' : undefined}
+        data-light-background={detailDarkBackground
+          ? detailLightBackground
+          : undefined}
+        data-dark-background={detailDarkBackground}
+      >
+        <img
+          src={detailLightLogo}
+          data-theme-image={detailDarkLogo ? '' : undefined}
+          data-light-src={detailDarkLogo ? detailLightLogo : undefined}
+          data-dark-src={detailDarkLogo}
+          alt={`${project.title} logo`}
+          decoding="async"
+          draggable="false"
+          class="block h-28 w-auto max-w-full sm:h-36"
+        />
+      </div>
+
+      <div
+        class="mt-10 grid items-start gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.65fr)_minmax(0,1fr)] md:gap-7 lg:mt-14 lg:gap-10"
+      >
+        <aside>
+          <SectionTitle translationKey="used-technologies" />
+          <ul
+            class="mt-5 flex flex-wrap gap-2 md:flex-col md:items-start"
+            aria-label={`${project.title} technologies`}
+          >
+            {
+              technologies.map((technology) => (
+                <TechnologyTag label={technology} />
+              ))
+            }
+          </ul>
+        </aside>
+
+        <section aria-labelledby="project-description-title">
+          <SectionTitle
+            id="project-description-title"
+            translationKey="about-project"
+          />
+          <p
+            class="mt-5 whitespace-pre-line text-sm leading-7 text-(--text-secondary)"
+            data-i18n={project.description}
+          >
+            {description}
+          </p>
+        </section>
+
+        {
+          images.length > 0 && (
+            <aside aria-labelledby="project-gallery-title">
+              <SectionTitle
+                id="project-gallery-title"
+                translationKey="project-gallery"
+              />
+
+              <div class="mt-5">
+                <Gallery images={project.images} />
+              </div>
+            </aside>
+          )
+        }
+      </div>
+    </section>
+  </main>
+</Layout>

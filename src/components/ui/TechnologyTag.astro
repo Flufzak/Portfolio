@@ -1,0 +1,20 @@
+---
+interface Props {
+  label: string;
+  size?: 'compact' | 'default';
+}
+
+const { label, size = 'default' } = Astro.props;
+---
+
+<li
+  class:list={[
+    'w-fit rounded-full border border-(--accent) bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] font-medium text-(--text-primary)',
+    {
+      'px-2.5 py-0.5 text-[0.65rem]': size === 'compact',
+      'px-3 py-1 text-xs': size === 'default',
+    },
+  ]}
+>
+  {label}
+</li>

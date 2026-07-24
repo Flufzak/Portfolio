@@ -16,6 +16,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.1",
     "i18next": "^26.3.6",
+    "photoswipe": "^5.4.4",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {

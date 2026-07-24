@@ -2,6 +2,7 @@
 import { Blocks, Brush, Server } from '@lucide/astro';
 import { t } from '../i18n';
 import type { TranslationKey } from '../i18n';
+import Divider from './ui/Divider.astro';
 
 const buildItems = [
   { icon: Brush, title: 'frontend', description: 'frontend-description' },
@@ -15,11 +16,7 @@ const buildItems = [
 ---
 
 <section id="about">
-  <div
-    class="relative left-1/2 h-px w-screen -translate-x-1/2 bg-linear-to-r from-transparent via-(--text-muted) to-transparent opacity-60"
-    aria-hidden="true"
-  >
-  </div>
+  <Divider class="w-full" />
 
   <div
     class="grid items-center gap-8 py-13 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-20"
@@ -47,7 +44,7 @@ const buildItems = [
   </div>
 
   <section
-    class="relative left-1/2 w-screen -translate-x-1/2 bg-(--primary) text-(--surface)"
+    class="full-bleed relative bg-(--primary) text-(--surface)"
     aria-labelledby="what-i-build-heading"
   >
     <div class="page-container py-13">

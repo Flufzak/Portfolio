@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { t, type TranslationKey } from '../../i18n';
+
+interface Props extends Omit<HTMLAttributes<'h2'>, 'id'> {
+  translationKey: TranslationKey;
+  id?: string;
+}
+
+const { translationKey, id, class: className, ...attributes } = Astro.props;
+---
+
+<h2
+  {...attributes}
+  id={id}
+  class:list={[
+    'text-sm font-semibold uppercase tracking-[0.14em] text-(--text-primary)',
+    className,
+  ]}
+  data-i18n={translationKey}
+>
+  {t(translationKey)}
+</h2>

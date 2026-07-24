@@ -1,0 +1,61 @@
+---
+import 'photoswipe/style.css';
+
+import type { ProjectImage } from '../data/projects';
+
+interface Props {
+  images: ProjectImage[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="grid gap-4" data-pswp-gallery>
+  {
+    images.map((image) => (
+      <figure class="overflow-hidden rounded-[0.68rem] border border-(--border) bg-(--surface)">
+        <a
+          href={image.src}
+          data-pswp-width={image.width}
+          data-pswp-height={image.height}
+          target="_blank"
+          class="group block cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2px focus-visible:outline-(--primary)"
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
+            class="block h-auto w-full object-contain transition-opacity group-hover:opacity-85"
+          />
+        </a>
+      </figure>
+    ))
+  }
+</div>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+
+  function initializeGalleries(): void {
+    document
+      .querySelectorAll<HTMLElement>('[data-pswp-gallery]')
+      .forEach((gallery) => {
+        if (gallery.dataset.pswpInitialized === 'true') return;
+        gallery.dataset.pswpInitialized = 'true';
+
+        const lightbox = new PhotoSwipeLightbox({
+          gallery,
+          children: 'a',
+          pswpModule: () => import('photoswipe'),
+        });
+
+        lightbox.init();
+      });
+  }
+
+  initializeGalleries();
+  document.addEventListener('astro:page-load', initializeGalleries);
+</script>

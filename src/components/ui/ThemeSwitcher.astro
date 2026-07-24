@@ -110,8 +110,41 @@ import Button from './Button.astro';
         const nextSource =
           theme === 'dark' ? image.dataset.darkSrc : image.dataset.lightSrc;
 
-        if (nextSource && image.src !== new URL(nextSource, location.href).href) {
+        if (
+          nextSource &&
+          image.src !== new URL(nextSource, location.href).href
+        ) {
           image.src = nextSource;
+        }
+      });
+  }
+
+  function updateThemeBackgrounds(theme: Theme): void {
+    document
+      .querySelectorAll<HTMLElement>('[data-theme-background]')
+      .forEach((element) => {
+        const nextBackground =
+          theme === 'dark'
+            ? element.dataset.darkBackground
+            : element.dataset.lightBackground;
+
+        if (nextBackground) {
+          element.style.backgroundColor = nextBackground;
+        }
+      });
+  }
+
+  function updateThemeBackgroundImages(theme: Theme): void {
+    document
+      .querySelectorAll<HTMLElement>('[data-theme-background-image]')
+      .forEach((element) => {
+        const nextSource =
+          theme === 'dark'
+            ? element.dataset.darkBackgroundImage
+            : element.dataset.lightBackgroundImage;
+
+        if (nextSource) {
+          element.style.backgroundImage = `url("${nextSource}")`;
         }
       });
   }
@@ -129,6 +162,8 @@ import Button from './Button.astro';
 
     updateThemeSwitcher(theme);
     updateThemeImages(theme);
+    updateThemeBackgrounds(theme);
+    updateThemeBackgroundImages(theme);
 
     window.dispatchEvent(
       new CustomEvent<Theme>('themechange', {

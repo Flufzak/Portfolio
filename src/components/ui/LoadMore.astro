@@ -1,0 +1,54 @@
+---
+import { t } from '../../i18n';
+import type { TranslationKey } from '../../i18n';
+import Button from './Button.astro';
+import Divider from './Divider.astro';
+
+interface Props {
+  targetId: string;
+  translationKey: TranslationKey;
+}
+
+const { targetId, translationKey } = Astro.props;
+---
+
+<div class="mt-8 flex items-center gap-4 lg:hidden" data-load-more-container>
+  <Divider class="flex-1" />
+  <Button
+    class="shrink-0 rounded-[0.68rem] px-5! py-2.5! text-xs font-semibold uppercase tracking-[0.12em]"
+    aria-controls={targetId}
+    aria-expanded="false"
+    data-load-more
+    data-load-more-target={targetId}
+    data-i18n={translationKey}
+  >
+    {t(translationKey)}
+  </Button>
+  <Divider class="flex-1" />
+</div>
+
+<script>
+  function initializeLoadMore(): void {
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-load-more]')
+      .forEach((button) => {
+        if (button.dataset.listenerAttached === 'true') return;
+
+        button.dataset.listenerAttached = 'true';
+        button.addEventListener('click', () => {
+          const targetId = button.dataset.loadMoreTarget;
+          const target = targetId ? document.getElementById(targetId) : null;
+
+          target
+            ?.querySelectorAll<HTMLElement>('[data-load-more-item]')
+            .forEach((item) => item.classList.remove('hidden'));
+
+          button.setAttribute('aria-expanded', 'true');
+          button.closest<HTMLElement>('[data-load-more-container]')?.remove();
+        });
+      });
+  }
+
+  initializeLoadMore();
+  document.addEventListener('astro:page-load', initializeLoadMore);
+</script>

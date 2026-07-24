@@ -39,8 +39,25 @@ body {
   margin-inline: auto;
 }
 
+.wide-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 1536px) {
+  .wide-container {
+    max-width: var(--page-max-width);
+  }
+}
+
 .page-padding {
   padding-inline: var(--page-padding);
+}
+
+.full-bleed {
+  width: auto;
+  margin-inline: calc(var(--page-padding) * -1);
 }
 
 .button {
