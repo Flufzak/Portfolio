@@ -1,0 +1,68 @@
+---
+import { t } from '../i18n';
+
+const technologies = [
+  {
+    name: 'Astro',
+    href: 'https://astro.build/',
+  },
+  {
+    name: 'Tailwind CSS',
+    href: 'https://tailwindcss.com/',
+  },
+  {
+    name: 'i18n',
+    href: 'https://www.i18next.com/',
+  },
+  {
+    name: 'PhotoSwipe',
+    href: 'https://photoswipe.com/',
+  },
+  {
+    name: 'Lucide',
+    href: 'https://lucide.dev/',
+  },
+  {
+    name: 'Google Fonts',
+    href: 'https://fonts.google.com/',
+  },
+  {
+    name: 'UIverse',
+    href: 'https://uiverse.io/',
+  },
+];
+---
+
+<footer class="full-bleed border-t border-(--border) bg-(--surface) pt-10">
+  <div class="page-container pb-5">
+    <p
+      class="text-xs font-medium tracking-[0.2em] text-(--text-muted) uppercase"
+    >
+      {t('built-with')}
+    </p>
+
+    <ul class="flex gap-x-5 gap-y-2 my-4 flex-wrap lg:flex-wrap:nowrap">
+      {
+        technologies.map((technology) => (
+          <li>
+            <a
+              href={technology.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm"
+            >
+              {technology.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p
+      class="text-center text-sm text-(--text-muted) mt-2 lg:mt-0"
+      data-i18n="footer-text"
+    >
+      {t('footer-text')}
+    </p>
+  </div>
+</footer>

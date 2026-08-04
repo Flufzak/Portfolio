@@ -210,6 +210,15 @@ body {
 }
 
 @layer base {
+  a {
+    color: var(--text-secondary);
+    transition: color 200ms ease;
+  }
+
+  a:hover {
+    color: var(--primary);
+  }
+
   h1 {
     @apply text-4xl font-bold;
   }
@@ -224,5 +233,11 @@ body {
 
   p {
     @apply leading-relaxed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition-duration: 0.01ms;
   }
 }
