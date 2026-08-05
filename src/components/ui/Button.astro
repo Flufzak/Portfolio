@@ -2,21 +2,29 @@
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'button'> {
+  href?: string;
   inverted?: boolean;
 }
 
 const {
   class: className,
+  href,
   inverted = false,
   type = 'button',
   ...attributes
 } = Astro.props;
+
+const classes = ['button', { 'button--inverted': inverted }, className];
 ---
 
-<button
-  {...attributes}
-  class:list={['button', { 'button--inverted': inverted }, className]}
-  type={type}
->
-  <slot />
-</button>
+{
+  href ? (
+    <a {...attributes} class:list={classes} href={href}>
+      <slot />
+    </a>
+  ) : (
+    <button {...attributes} class:list={classes} type={type}>
+      <slot />
+    </button>
+  )
+}

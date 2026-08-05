@@ -1,0 +1,182 @@
+---
+import { ArrowLeft } from '@lucide/astro';
+
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Button from '../components/ui/Button.astro';
+import { t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page not found | Suzanna Khachatryan"
+  description="The requested page could not be found."
+>
+  <Header />
+
+  <main class="error-page grid place-items-center text-center">
+    <section
+      class="mx-auto w-full max-w-2xl px-4"
+      aria-labelledby="not-found-title"
+    >
+      <div class="face-container" aria-hidden="true">
+        <svg class="face" viewBox="0 0 320 380">
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="25"
+          >
+            <g class="face__eyes" transform="translate(0,112.5)">
+              <g transform="translate(15,0)">
+                <polyline class="face__eye-lid" points="37,0 0,120 75,120"
+                ></polyline>
+                <polyline
+                  class="face__pupil"
+                  points="55,120 55,155"
+                  stroke-dasharray="35 35"></polyline>
+              </g>
+              <g transform="translate(230,0)">
+                <polyline class="face__eye-lid" points="37,0 0,120 75,120"
+                ></polyline>
+                <polyline
+                  class="face__pupil"
+                  points="55,120 55,155"
+                  stroke-dasharray="35 35"></polyline>
+              </g>
+            </g>
+            <rect
+              class="face__nose"
+              x="132.5"
+              y="112.5"
+              width="55"
+              height="155"
+              rx="4"
+              ry="4"></rect>
+            <g transform="translate(65,334)" stroke-dasharray="102 102">
+              <path class="face__mouth-left" d="M 0 30 C 0 30 40 0 95 0"></path>
+              <path class="face__mouth-right" d="M 95 0 C 150 0 190 30 190 30"
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <p
+        class="mb-3 text-[0.65rem] font-medium uppercase tracking-[0.24em] text-(--primary)"
+        data-i18n="not-found-label"
+      >
+        {t('not-found-label')}
+      </p>
+
+      <h1
+        id="not-found-title"
+        class="text-3xl font-semibold leading-[1.08] tracking-[-0.04em] sm:text-5xl"
+        data-i18n="not-found-title"
+      >
+        {t('not-found-title')}
+      </h1>
+
+      <p
+        class="mx-auto mt-4 max-w-lg text-sm leading-6 text-(--text-secondary) sm:text-base"
+        data-i18n="not-found-body"
+      >
+        {t('not-found-body')}
+      </p>
+
+      <Button
+        href="/"
+        class="mt-6 inline-flex items-center gap-2 rounded-[0.68rem] px-5! py-3! text-xs font-medium uppercase tracking-[0.16em] no-underline"
+      >
+        <p data-i18n="take-me-home">{t('take-me-home')}</p>
+      </Button>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .error-page {
+    min-height: calc(100svh - 6rem);
+    margin-top: 6rem;
+    padding-block: clamp(2rem, 6vh, 4rem);
+  }
+
+  .face-container {
+    display: grid;
+    width: min(10rem, 45vw);
+    margin: 0 auto 1.25rem;
+    place-items: center;
+    color: var(--primary);
+  }
+
+  .face {
+    display: block;
+    width: 100%;
+    filter: drop-shadow(0 1.25rem 2.5rem var(--shadow));
+  }
+
+  .face__eye-lid,
+  .face__nose {
+    color: var(--primary);
+  }
+
+  .face__pupil,
+  .face__mouth-left,
+  .face__mouth-right {
+    color: var(--primary);
+  }
+
+  .face__pupil {
+    animation: blink 4s ease-in-out infinite;
+  }
+
+  .face__mouth-left,
+  .face__mouth-right {
+    animation: draw-mouth 900ms ease-out both;
+  }
+
+  .face__mouth-right {
+    animation-delay: 140ms;
+  }
+
+  @keyframes blink {
+    0%,
+    44%,
+    52%,
+    100% {
+      stroke-dashoffset: 0;
+    }
+
+    48% {
+      stroke-dashoffset: 35;
+    }
+  }
+
+  @keyframes draw-mouth {
+    from {
+      stroke-dashoffset: 102;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .face__pupil,
+    .face__mouth-left,
+    .face__mouth-right {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .error-page {
+      min-height: calc(100svh - 4rem);
+      margin-top: 4rem;
+    }
+  }
+</style>
