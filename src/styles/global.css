@@ -9,6 +9,16 @@
   --spline-copy-bottom: 4.5rem;
 }
 
+::selection {
+  background: color-mix(in srgb, currentColor 25%, transparent);
+  color: currentColor;
+}
+
+html {
+  scrollbar-color: var(--primary) var(--surface);
+  scrollbar-width: thin;
+}
+
 body {
   font-family: 'Roboto Mono', monospace;
   background: var(--background);
