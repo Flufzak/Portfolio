@@ -7,12 +7,25 @@ import Divider from './Divider.astro';
 interface Props {
   targetId: string;
   translationKey: TranslationKey;
+  seeLessTranslationKey: TranslationKey;
+  showOnLarge?: boolean;
 }
 
-const { targetId, translationKey } = Astro.props;
+const {
+  targetId,
+  translationKey,
+  seeLessTranslationKey,
+  showOnLarge = false,
+} = Astro.props;
 ---
 
-<div class="mt-8 flex items-center gap-4 lg:hidden" data-load-more-container>
+<div
+  class:list={[
+    'mt-8 flex items-center gap-4',
+    { 'lg:hidden': !showOnLarge },
+  ]}
+  data-load-more-container
+>
   <Divider class="flex-1" />
   <Button
     class="shrink-0 rounded-[0.68rem] px-5! py-2.5! text-xs font-semibold uppercase tracking-[0.12em]"
@@ -20,6 +33,8 @@ const { targetId, translationKey } = Astro.props;
     aria-expanded="false"
     data-load-more
     data-load-more-target={targetId}
+    data-load-more-translation-key={translationKey}
+    data-see-less-translation-key={seeLessTranslationKey}
     data-i18n={translationKey}
   >
     {t(translationKey)}
@@ -28,6 +43,11 @@ const { targetId, translationKey } = Astro.props;
 </div>
 
 <script>
+  import { clientT } from '../../i18n/client';
+  import type { TranslationKey } from '../../i18n';
+
+  const largeScreen = window.matchMedia('(min-width: 64rem)');
+
   function initializeLoadMore(): void {
     document
       .querySelectorAll<HTMLButtonElement>('[data-load-more]')
@@ -35,17 +55,63 @@ const { targetId, translationKey } = Astro.props;
         if (button.dataset.listenerAttached === 'true') return;
 
         button.dataset.listenerAttached = 'true';
+        const targetId = button.dataset.loadMoreTarget;
+        const target = targetId ? document.getElementById(targetId) : null;
+        const container = button.closest<HTMLElement>(
+          '[data-load-more-container]',
+        );
+        const items = Array.from(
+          target?.querySelectorAll<HTMLElement>('[data-load-more-item]') ?? [],
+        );
+        let mobileVisible = 2;
+        let desktopVisible = 6;
+
+        const updateItems = (): void => {
+          const initialVisible = largeScreen.matches ? 6 : 2;
+          const visibleCount = largeScreen.matches
+            ? desktopVisible
+            : mobileVisible;
+          const allVisible = visibleCount >= items.length;
+
+          items.forEach((item, index) => {
+            item.classList.remove('hidden', 'lg:block');
+            item.hidden = index >= visibleCount;
+          });
+
+          if (container) container.hidden = items.length <= initialVisible;
+
+          const translationKey = allVisible
+            ? button.dataset.seeLessTranslationKey
+            : button.dataset.loadMoreTranslationKey;
+
+          if (translationKey && button.dataset.i18n !== translationKey) {
+            button.dataset.i18n = translationKey;
+            button.textContent = clientT(translationKey as TranslationKey);
+          }
+
+          button.setAttribute('aria-expanded', String(allVisible));
+        };
+
         button.addEventListener('click', () => {
-          const targetId = button.dataset.loadMoreTarget;
-          const target = targetId ? document.getElementById(targetId) : null;
+          const visibleCount = largeScreen.matches
+            ? desktopVisible
+            : mobileVisible;
 
-          target
-            ?.querySelectorAll<HTMLElement>('[data-load-more-item]')
-            .forEach((item) => item.classList.remove('hidden'));
+          if (largeScreen.matches) {
+            desktopVisible = visibleCount >= items.length
+              ? 6
+              : desktopVisible + 6;
+          } else {
+            mobileVisible = visibleCount >= items.length
+              ? 2
+              : mobileVisible + 4;
+          }
 
-          button.setAttribute('aria-expanded', 'true');
-          button.closest<HTMLElement>('[data-load-more-container]')?.remove();
+          updateItems();
         });
+
+        largeScreen.addEventListener('change', updateItems);
+        updateItems();
       });
   }
 

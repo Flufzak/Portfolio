@@ -17,8 +17,13 @@ import LoadMore from './ui/LoadMore.astro';
     {
       projects.map((project, index) => (
         <div
-          class:list={['h-full', { 'hidden lg:block': index >= 2 }]}
-          data-load-more-item={index >= 2 ? '' : undefined}
+          class:list={[
+            'h-full',
+            { 'hidden lg:block': index >= 2 && index < 6 },
+            { hidden: index >= 6 },
+          ]}
+          data-load-more-item
+          data-load-more-index={index}
         >
           <ProjectCard project={project} />
         </div>
@@ -28,7 +33,12 @@ import LoadMore from './ui/LoadMore.astro';
 
   {
     projects.length > 2 && (
-      <LoadMore targetId="project-grid" translationKey="load-more-projects" />
+      <LoadMore
+        targetId="project-grid"
+        translationKey="load-more-projects"
+        seeLessTranslationKey="see-less-projects"
+        showOnLarge={projects.length > 6}
+      />
     )
   }
 </section>
