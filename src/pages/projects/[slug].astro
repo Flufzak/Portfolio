@@ -1,7 +1,6 @@
 ---
 import { ArrowLeft } from '@lucide/astro';
 
-import Header from '../../components/Header.astro';
 import SectionTitle from '../../components/ui/SectionTitle.astro';
 import TechnologyTag from '../../components/ui/TechnologyTag.astro';
 import { projects, type Project } from '../../data/projects';
@@ -36,8 +35,6 @@ const detailDarkBackground =
   description={description.split('\n')[0]}
   image={images[0]?.src ?? project.logo}
 >
-  <Header />
-
   <main class="wide-container min-h-screen pt-28 pb-10 sm:pt-20 sm:pb-16">
     <a
       href="/#projects"

@@ -1,4 +1,6 @@
 ---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 import '../styles/global.css';
 import '../styles/theme.css';
 
@@ -40,6 +42,8 @@ const {
   </head>
 
   <body class="page-padding">
+    <Header />
     <slot />
+    <Footer />
   </body>
 </html>
