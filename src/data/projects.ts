@@ -275,6 +275,36 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: 'patisserie-eliza',
+    title: 'Patisserie Eliza',
+    description: 'patisserie-eliza-description',
+    technologies: ['React', 'TypeScript'],
+    logo: '/assets/projects/pateliz/logo.png',
+    detailLightLogo: '/assets/projects/pateliz/logo.svg',
+    detailLightBackground: '#f49ac2',
+    usedTechnologies: ['React', 'TypeScript', 'JavaScript', 'Tailwind', 'Vite'],
+    images: [
+      {
+        src: '/assets/projects/pateliz/home.png',
+        width: 1919,
+        height: 871,
+        alt: 'Patisserie Eliza home page',
+      },
+      {
+        src: '/assets/projects/pateliz/all.png',
+        width: 1894,
+        height: 872,
+        alt: 'Patisserie Eliza cake overview',
+      },
+      {
+        src: '/assets/projects/pateliz/detail.png',
+        width: 1894,
+        height: 870,
+        alt: 'Patisserie Eliza cake detail page',
+      },
+    ],
+  },
+  {
     slug: 'stuff',
     title: 'Stuff',
     description: 'stuff-description',
